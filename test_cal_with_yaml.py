@@ -2,6 +2,15 @@ import pytest
 import yaml
 from code.calculator import Calculator
 
+def setup_module():
+    # 打印测试开始的提醒
+    print('\n【本次测试作业的计算测试开始.】')
+
+
+def teardown_module():
+    # 打印测试结束的提醒
+    print('【本次测试作业的计算测试结束.】')
+
 def get_datas():
     with open("./test_data.yml") as shuju:
         datas = yaml.safe_load(shuju)
