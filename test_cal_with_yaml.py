@@ -6,15 +6,14 @@ def setup_module():
     # 打印测试开始的提醒
     print('\n【本次测试作业的计算测试开始.】')
 
-
 def teardown_module():
     # 打印测试结束的提醒
     print('【本次测试作业的计算测试结束.】')
 
 def get_datas():
+    # 打开yaml数据文件取值
     with open("./test_data.yml") as shuju:
         datas = yaml.safe_load(shuju)
-        print(datas)
         # 获取文件中key为avalue&bvalue的数据
         avalue_test = datas["avalue"]
         bvalue_test = datas["bvalue"]
@@ -22,24 +21,21 @@ def get_datas():
         ids_test = datas["myids"]
         return [avalue_test, bvalue_test, ids_test]
 
-# @pytest.fixture()
-# def befor():
-#     print("\n【本次测试作业的计算测试开始.】")
-
 class TestCalc:
     def setup_class(self):
         # 实例化类,生成类的对象
         self.calc = Calculator()
 
-    #使用参数化
+    # 使用参数化（下同）
     @pytest.mark.parametrize("a", get_datas()[0], ids=get_datas()[2])
     @pytest.mark.parametrize("b", get_datas()[1], ids=get_datas()[2])
-    # 测试add函数
+    # 测试add函数（下同）
     def test_add(self, a, b):
+        # 即时生成预期值（想不到其他办法了）（下同）
         expected = a + b
-        # 调用add函数,返回的结果保存在result里面
+        # 调用add函数,返回的结果保存在result里面（下同）
         result = self.calc.add(a, b)
-        # 判断result结果是否等于期望的值
+        # 判断result结果是否等于期望的值（下同）
         assert result == expected
 
     @pytest.mark.parametrize("a", get_datas()[0], ids=get_datas()[2])
@@ -60,10 +56,13 @@ class TestCalc:
     @pytest.mark.parametrize("a", get_datas()[0], ids=get_datas()[2])
     @pytest.mark.parametrize("b", get_datas()[1], ids=get_datas()[2])
     def test_div(self, a, b):
+        # 由于除数不能0，这里做了判断
+        # b非0则正常判断
         if b != 0:
             expected = a / b
             result = self.calc.div(a, b)
             assert result == expected
+        # b为0则打印错误提醒，直接判为PASS
         else:
             print(f'参数b为{b}，不能作为除数。')
             assert b == 0

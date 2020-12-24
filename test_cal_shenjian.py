@@ -17,14 +17,14 @@ class TestCalc:
         # 实例化类,生成类的对象
         self.calc = Calculator()
 
-    #  使用参数化
+    #  使用预设参数进行参数化
     @pytest.mark.parametrize("a,b,expected", [(3, 7, 10), (-1, -8, -9), (14, -6, 8),(0.5, 1.6, 2.1)],
                              ids=("Posi", "Nega", "Posi&Nega", "Float"))
-    # 测试add函数
+    # 测试add函数（下同）
     def test_add(self, a, b, expected):
-        # 调用add函数,返回的结果保存在result里面
+        # 调用add函数,返回的结果保存在result里面（下同）
         result = self.calc.add(a, b)
-        # 判断result结果是否等于期望的值
+        # 判断result结果是否等于期望的值（下同）
         assert result == expected
 
     @pytest.mark.parametrize("a,b,expected", [(66, 22, 44), (-11, -19, 8), (-6, 9, -15), (8.5, 5.5, 3)],
